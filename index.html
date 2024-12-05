@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автомобили</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        .newDiv {
+            background-color: lightblue;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        #myDiv {
+            width: 200px;
+            height: 100px;
+            background-color: lightblue;
+            margin-top: 20px;
+        }
+        #javaScriptDiv {
+            background-color: lightyellow;
+            padding: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+    <style>
+        /* Добавим плавный переход для скрытия и отображения элементов */
+        .fade {
+            transition: opacity 1s ease;
+        }
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 1s ease;
+        }
+        .fade-enter, .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+header {
+    background: #35424a;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+button {
+    margin: 10px 5px;
+    padding: 10px 15px;
+    background: #35424a;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4CAF50;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #ddd;
+    margin: 5px 0;
+    padding: 10px;
+}
+
+.highlight {
+    background: #ffcccb !important;
+    font-weight: bold;
+}
+
+#car-image {
+    max-width: 300px;
+    margin: 10px 0;
+}
+
+.slick-prev, .slick-next {
+    color: #35424a !important;
+}
+
+.slick-dots li button:before {
+    color: #35424a;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #4CAF50;
+}
+
+    </style>
+  <title>Автомобили</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+  <!--Ссылка на Подключение Vue.js через CDN в секции <head>-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+</head>
+<body>
+    <header>
+        <h1>Мир автомобилей</h1>
+    </header>
+    <!-- Элементы для jQuery -->
+    <button id="toggleButton">Показать/Скрыть дополнительную информацию (jQuery)</button>
+    <div id="info" class="fade">
+        <!-- Таблица с сортировкой -->
+    <h3>Сортировка таблицы по столбцам</h3>
+    <table id="table">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">№</th>
+                <th onclick="sortTable(1)">Компания</th>
+                <th onclick="sortTable(2)">Год основания</th>
+                <th>Изменить</th> <!-- Столбец для кнопок изменения -->
+                <th>Удалить</th> <!-- Столбец для кнопок удаления -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Ford</td>
+                <td>1903</td>
+                <td><button onclick="editRow(this)">Изменить</button></td>
+                <td><button onclick="deleteRow(this)">Удалить</button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>General Motors</td>
+                <td>1908</td>
+                <td><button onclick="editRow(this)">Изменить</button></td>
+                <td><button onclick="deleteRow(this)">Удалить</button></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Volkswagen</td>
+                <td>1937</td>
+                <td><button onclick="editRow(this)">Изменить</button></td>
+                <td><button onclick="deleteRow(this)">Удалить</button></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Ferrari</td>
+                <td>1947</td>
+                <td><button onclick="editRow(this)">Изменить</button></td>
+                <td><button onclick="deleteRow(this)">Удалить</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Добавление строки в таблицу и изменение информации -->
+    <h3>Изменение таблицы</h3>
+    <button onclick="addRow()">Добавить строку в таблицу</button>
+    </div>
+    <main>
+        <section id="car-gallery">
+            <h2>Галерея автомобилей</h2>
+            <div class="carousel">
+                <div><img src="https://cdn.forbes.ru/files/c/1082x683/photo_galleries/1920-02_tcm-3173-1834873.jpg__1582289253__55999.webp" alt="Toyota" width="300"></div>
+                <div><img src="http://surl.li/jiomoy" alt="Honda" width="300"></div>
+                <div><img src="https://via.placeholder.com/300x200?text=Ford" alt="Ford" width="300"></div>
+            </div>
+        </section>
+    </main>
+    <main>
+        <section id="car-info">
+            <h2>Популярные автомобили</h2>
+            <ul id="car-list">
+                <li data-price="20000">Toyota Corolla</li>
+                <li data-price="25000">Honda Civic</li>
+                <li data-price="30000">Ford Focus</li>
+            </ul>
+            <button id="add-car">Добавить автомобиль</button>
+            <button id="highlight-cars">Выделить дорогие автомобили</button>
+        </section>
+        </main>
+    <main>
+        <section id="visual-effects">
+            <h2>Эффекты с автомобилями</h2>
+            <div id="car-image">
+                <img src="https://via.placeholder.com/300" alt="Placeholder Car">
+            </div>
+            <button id="toggle-image">Скрыть/показать изображение</button>
+        </section>
+    </main>
+    <main id="app">
+        <section id="car-info">
+            <h2>Дорогие авто</h2>
+            <ul>
+                <li v-for="car in filteredCars" :key="car.name" :data-price="car.price">
+                    {{ car.name }} — {{ car.price }}$
+                </li>
+            </ul>
+            <button @click="addCar">Добавить автомобиль</button>
+            <input type="number" v-model="priceLimit" placeholder="Введите лимит цены">
+        </section>
+<!-- Кнопки для работы с объектами BOM -->
+<h3>Работа с объектами BOM</h3>
+<button onclick="getLocationInfo()">Показать текущий URL</button>
+<button onclick="redirect()">Перейти на другой сайт</button>
+  <!-- Кнопки для добавления новых элементов DOM -->
+  <h3>Добавление нового блока и изменение структуры</h3>
+  <button onclick="addNewElement()">Добавить изображение</button>
+  <div id="myDiv">
+  </div>
+  <!--/////////////////////////////////////////////////////-->
+  <h1>Добавление и удаление заголовков</h1>
+<div class="buttons">
+    <button id="addHeaderBtn">Добавить заголовок</button>
+    <button id="removeLastHeaderBtn">Удалить последний заголовок</button>
+    <button id="removeAllHeadersBtn">Удалить все заголовки</button>
+</div>
+<div id="headerContainer"></div>
+
+<script>
+    $(document).ready(function () {
+        // Обработчик для добавления заголовка
+        $("#addHeaderBtn").on("click", function () {
+            const headerText = prompt("Введите текст для нового заголовка:");
+
+            if (headerText) {
+                const newHeader = $("<h2>").addClass("newHeader").text(headerText);
+                $("#headerContainer").append(newHeader);
+            } else {
+                alert("Вы не ввели текст для заголовка!");
+            }
+        });
+
+        // Обработчик для удаления последнего заголовка
+        $("#removeLastHeaderBtn").on("click", function () {
+            $("#headerContainer .newHeader").last().remove();
+        });
+
+        // Обработчик для удаления всех заголовков
+        $("#removeAllHeadersBtn").on("click", function () {
+            $("#headerContainer .newHeader").remove();
+        });
+    });
+</script>
+<style>
+    .newHeader {
+        font-size: 24px;
+        color: #333;
+        margin: 10px 0;
+        border-bottom: 2px solid #666;
+        padding-bottom: 5px;
+    }
+
+    .buttons {
+        margin: 20px 0;
+    }
+</style>
+<!--///////////////////////////////////////////////////////////////////////////////-->
+    <footer>
+        <p>© Спасибо за внимание </p>
+    </footer>
+    <script>
+        // 1. Интеграция jQuery
+        $(document).ready(function() {
+            // Когда пользователь кликает по кнопке #toggleButton, меняем видимость #info
+            $('#toggleButton').click(function() {
+                $('#info').fadeToggle(500); // Плавное появление/скрытие элемента
+            });
+
+            // Добавление CSS-стилей с использованием jQuery
+            $('#toggleButton').hover(function() {
+                $(this).css('background-color', '#ff9900'); // Меняем фон кнопки при наведении
+            }, function() {
+                $(this).css('background-color', ''); // Возвращаем исходный фон
+            });
+
+            // Подсветка текста на кнопке
+            $('#toggleButton').click(function() {
+                $(this).toggleClass('highlight');
+            });
+        });
+    </script>
+    <script> 
+        // 1. Сортировка таблицы по клику на заголовки
+        function sortTable(n) {
+            var table = document.getElementById("table");
+            var rows = table.rows;
+            var switching = true;
+            var dir = "asc";
+            
+            while (switching) {
+                switching = false;
+                var rowsArray = Array.from(rows).slice(1); // Пропускаем первую строку с заголовками
+                
+                for (var i = 0; i < rowsArray.length - 1; i++) {
+                    var x = rowsArray[i].getElementsByTagName("TD")[n];
+                    var y = rowsArray[i + 1].getElementsByTagName("TD")[n];
+                    
+                    if (dir == "asc" && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase() || 
+                        dir == "desc" && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        rowsArray[i].parentNode.insertBefore(rowsArray[i + 1], rowsArray[i]);
+                        switching = true;
+                        break;
+                    }
+                }
+                if (!switching && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+     // 2. Добавление строки в таблицу
+     function addRow() {
+            var table = document.getElementById("table").getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow();
+            newRow.insertCell(0).innerText = "...";
+            newRow.insertCell(1).innerText = "...";
+            newRow.insertCell(2).innerText = "...";
+            newRow.insertCell(3).innerHTML = '<button onclick="editRow(this)">Изменить</button>';  // Добавление кнопки для редактирования
+            newRow.insertCell(4).innerHTML = '<button onclick="deleteRow(this)">Удалить</button>';  // Добавление кнопки для удаления
+        }
+
+        // 3. Функция для многократного изменения информации в строках таблицы
+        function editRow(button) {
+            // Находим строку, в которой была нажата кнопка
+            var row = button.parentNode.parentNode;
+            
+            // Преобразуем ячейки строки в поля ввода
+            for (var i = 0; i < 3; i++) {
+                var cell = row.cells[i];
+                var currentText = cell.innerText;
+
+                // Создаем поле ввода, если оно еще не существует
+                if (!cell.querySelector("input")) {
+                    var input = document.createElement("input");
+                    input.type = "text";
+                    input.value = currentText;
+                    cell.innerHTML = '';  // Очищаем содержимое ячейки
+                    cell.appendChild(input);  // Добавляем поле ввода
+                }
+            }
+            
+            // Изменяем кнопку "Изменить" на "Сохранить"
+            button.innerText = "Сохранить";
+            button.onclick = function() {
+                saveRow(button);
+            };
+        }
+
+        // 4. Функция для сохранения измененной строки
+        function saveRow(button) {
+            var row = button.parentNode.parentNode;
+
+            // Применяем изменения из полей ввода в ячейки
+            for (var i = 0; i < 3; i++) {
+                var cell = row.cells[i];
+                var input = cell.querySelector("input");
+                if (input) {
+                    cell.innerText = input.value;  // Сохраняем текст из поля ввода
+                }
+            }
+
+            // Изменяем кнопку "Сохранить" на "Изменить"
+            button.innerText = "Изменить";
+            button.onclick = function() {
+                editRow(button);  // Возвращаем возможность редактировать снова
+            };
+        }
+
+        // 5. Функция для удаления строки
+        function deleteRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);  // Удаляем строку из таблицы
+        }
+</script>
+
+    <script>
+// Vue.js приложение
+const app = Vue.createApp({
+    data() {
+        return {
+            cars: [
+                { name: "Chevrolet Camaro", price: 40000 },
+                { name: "Honda ", price: 25000 },
+                { name: "Ford ", price: 30000 }
+            ],
+            priceLimit: 0
+        };
+    },
+    computed: {
+        filteredCars() {
+            if (this.priceLimit > 0) {
+                return this.cars.filter(car => car.price <= this.priceLimit);
+            }
+            return this.cars;
+        }
+    },
+    methods: {
+        addCar() {
+            this.cars.push({ name: "Tesla", price: 65000 }),
+            this.cars.push({ name: "Chevrolet ", price: 55000 }),
+            this.cars.push({ name: "Toyota", price: 95000 });
+        }
+    }
+});
+
+app.mount('#app');
+</script>
+<script>
+        $(document).ready(function () {
+    // Добавление нового элемента в список
+    $('#add-car').click(function () {
+        $('#car-list').append('<li data-price="35000">Chevrolet Malibu</li>');
+    });
+
+    // Выделение автомобилей с ценой выше 25000
+    $('#highlight-cars').click(function () {
+        $('#car-list li').each(function () {
+            const price = $(this).data('price');
+            if (price > 25000) {
+                $(this).addClass('highlight');
+            }
+        });
+    });
+
+    // Скрытие/показ изображения с эффектами
+    $('#toggle-image').click(function () {
+        $('#car-image img').fadeToggle(1000);
+    });
+
+    // Изменение контента при клике на автомобиль
+    $('#car-list').on('click', 'li', function () {
+        const carName = $(this).text();
+        const price = $(this).data('price');
+        alert(`Вы выбрали ${carName}, цена: $${price}`);
+    });
+     // Использование плагина jQuery UI: добавляем перетаскивание изображения
+     $('#car-image img').draggable();
+
+    // Использование плагина Slick Carousel
+    $('.carousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000
+    });
+});
+    </script>
+    <script>
+        // 4. Работа с объектами BOM
+        function getLocationInfo() {
+            alert("Текущий URL: " + window.location.href);
+        }
+
+        function redirect() {
+            window.location.href = "https://bit.ly/3AqO6KX";  // Можно заменить на любой URL
+        }
+    </script>
+    <script>
+         // 2. Добавление нового элемента в DOM (в том числе изображения с URL)
+function addNewElement() {
+    // Запрашиваем ссылку на изображение
+    var imageURL = prompt("Введите ссылку на изображение:");
+
+    if (imageURL) {
+        // Создаем отдельный блок для изображения
+        var newDiv = document.createElement("div");
+        newDiv.classList.add("newDiv");
+
+        // Создаем элемент изображения
+        var img = document.createElement("img");
+        img.src = imageURL;
+
+        // Добавляем изображение в блок
+        newDiv.appendChild(img);
+
+        // Добавляем блок на страницу
+        document.body.appendChild(newDiv);
+    } else {
+        alert("Вы не ввели ссылку на изображение!");
+    }
+}
+    </script>
+</body>
+</html>
